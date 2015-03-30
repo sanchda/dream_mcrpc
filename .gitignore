@@ -3,4 +3,5 @@
 *.rar
 *.tar.gz
 *.tar.bz*
+*.mat
 data/
