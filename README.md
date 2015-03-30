@@ -4,5 +4,9 @@
 
 
 
-Approaches:
-1.  Stepwise feature-selection
+# Week 1 goals
+1) Load data
+2) Architecture for joins (scripts)
+3) Correlation analysis for all variables
+4) Baseline feature sets- smallest set of data needed to predict (by trial and aggregate)
+5) Recover and Reproduce Published Analysis
