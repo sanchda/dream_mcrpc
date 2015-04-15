@@ -6,13 +6,13 @@ if ~preLoaded
     coreTable = readtable('..\..\data\CoreTable_training_4_2_15.csv','TreatAsEmpty',{'','.','""'});
 
     %% First subtable obtained from the features that Halabi etal. used in the Nomogram (Figure 2)
-    subTable = table(coreTable.STUDYID, coreTable.LKADT_P, coreTable.LDH, coreTable.ECOG_C, ...
-        coreTable.ALB, coreTable.ALP, coreTable.HB, coreTable.PSA, 'VariableNames',{'STUDYID','LKADT_P','LDH','ECOG_C','ALB','ALP','HB','PSA'});
+    subTable = coreTable(:, {'STUDYID', 'LKADT_P', 'LDH', 'ECOG_C', 'ALB', 'ALP', 'HB', 'PSA'});
+    subTable.Properties.VariableNames = {'STUDYID','LKADT_P','LDH','ECOG_C','ALB','ALP','HB','PSA'};
 
     uStdy = unique(subTable.STUDYID);
-    study1Table = subTable(strcmp(subTable.STUDYID,uStdy{1}),2:end);
-    study2Table = subTable(strcmp(subTable.STUDYID,uStdy{2}),2:end);
-    study3Table = subTable(strcmp(subTable.STUDYID,uStdy{3}),2:end);
+    study1Table = subTable(ismember(subTable.STUDYID,uStdy{1}),2:end);
+    study2Table = subTable(ismember(subTable.STUDYID,uStdy{2}),2:end);
+    study3Table = subTable(ismember(subTable.STUDYID,uStdy{3}),2:end);
 else
     % Load 'coreTable', 'subTable', 'coreTable2','subTable2','study1Table',
     % 'study2Table','study3Table','uStdy'
@@ -31,7 +31,7 @@ repVal = -1;
 [minVals2, meanVals2, maxVals2, corrMat2] = findDescriptives(study2Mat, repVal);
 [minVals3, meanVals3, maxVals3, corrMat3] = findDescriptives(study3Mat, repVal);
 
-save('..\Results\descriptives_4_2_15.mat', 'minVals*', 'meanVals*', 'maxVals*','corrMat*');
+save('..\..\results\descriptives_4_2_15.mat', 'minVals*', 'meanVals*', 'maxVals*','corrMat*');
 
 % Display pairwise feature scatter plots for each Study type
 varNames = subTable.Properties.VariableNames(2:end);
@@ -39,8 +39,10 @@ plotPairwiseScatters(study1Mat, varNames, uStdy(1)); % ASCENT2
 plotPairwiseScatters(study2Mat, varNames, uStdy(2)); % CELGENE
 plotPairwiseScatters(study3Mat, varNames, uStdy(3)); % EFC6546
 
+
 %% Obtain meta features from the core training table
 metaFeats = computeMetaFeatures(coreTable);
+
 
 %% Append meta features to the end of the core table and save into new csv 
 coreTable2 = [coreTable metaFeats];

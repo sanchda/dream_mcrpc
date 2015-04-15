@@ -1,4 +1,4 @@
-function [] = Dream_Prostate_Halabi_Approach
+function [] = Dream_Prostate_Halabi_Approach()
 
 % Obtain the initial set of 22 features
 featNames = {'STUDYID','LKADT_P','DEATH','RACE_C','AGEGRP','BMI',...
@@ -55,5 +55,3 @@ all_featNames = halabiTable.Properties.VariableNames;
 save('..\..\data\halabi_feats_table.mat', 'halabiTable', 'all_featNames', 'f22_feat_names');
 save('..\..\data\halabi_22_feat_names.mat','f22_feat_names');
 writetable(halabiTable, '..\..\data\halabi_feats_table_4_9_15.csv');
-
-tt=1;
