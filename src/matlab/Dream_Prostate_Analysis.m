@@ -3,7 +3,7 @@ function [] = Dream_Prostate_Analysis()
 preLoaded = 1;
 
 if ~preLoaded
-    coreTable = readtable('..\Data\CoreTable_training_4_2_15.csv','TreatAsEmpty',{'','.','""'});
+    coreTable = readtable('..\..\data\CoreTable_training_4_2_15.csv','TreatAsEmpty',{'','.','""'});
 
     %% First subtable obtained from the features that Halabi etal. used in the Nomogram (Figure 2)
     subTable = table(coreTable.STUDYID, coreTable.LKADT_P, coreTable.LDH, coreTable.ECOG_C, ...
@@ -16,7 +16,7 @@ if ~preLoaded
 else
     % Load 'coreTable', 'subTable', 'coreTable2','subTable2','study1Table',
     % 'study2Table','study3Table','uStdy'
-    load('..\Data\matlab_vars_4_2_15.mat');
+    load('..\..\data\matlab_vars_4_2_15.mat');
 end
 
 % Obtain respective patient records for each of the 3 study ids
@@ -45,6 +45,6 @@ metaFeats = computeMetaFeatures(coreTable);
 %% Append meta features to the end of the core table and save into new csv 
 coreTable2 = [coreTable metaFeats];
 subTable2 = [subTable metaFeats];
-writetable(coreTable2,'..\Data\CoreTable_training_4_2_15.csv');
-save('..\Data\matlab_vars_4_2_15.mat','coreTable', 'subTable', 'coreTable2',...
+writetable(coreTable2,'..\..\data\CoreTable_training_4_2_15.csv');
+save('..\..\data\matlab_vars_4_2_15.mat','coreTable', 'subTable', 'coreTable2',...
     'subTable2','study1Table','study2Table','study3Table','uStdy');
