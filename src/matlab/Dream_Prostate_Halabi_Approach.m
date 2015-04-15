@@ -55,3 +55,6 @@ all_featNames = halabiTable.Properties.VariableNames;
 save('..\..\data\halabi_feats_table.mat', 'halabiTable', 'all_featNames', 'f22_feat_names');
 save('..\..\data\halabi_22_feat_names.mat','f22_feat_names');
 writetable(halabiTable, '..\..\data\halabi_feats_table_4_9_15.csv');
+
+%% Process the Halabi data into a matrix fit for consumption
+
