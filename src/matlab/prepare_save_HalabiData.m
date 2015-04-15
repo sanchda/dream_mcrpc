@@ -56,6 +56,9 @@ save('..\..\data\halabi_feats_table.mat', 'halabiTable', 'all_featNames', 'f22_f
 save('..\..\data\halabi_22_feat_names.mat','f22_feat_names');
 writetable(halabiTable, '..\..\data\halabi_feats_table_4_9_15.csv');
 
+% Save the 21 features along with the survival time and the cencorship to a
+% separate file
 halabi22feats = halabiTable(:,f22_feat_names);
 halabi22feats.SURV_TIME = halabiTable.LKADT_P;
-writetable(halabi22feats,'..\..\data\halabi_22_feats_4_14_15.csv');
+halabi22feats.CENCOR = halabiTable.DEATH;
+writetable(halabi22feats,'..\..\data\halabi_22_feats_4_15_15.csv');
