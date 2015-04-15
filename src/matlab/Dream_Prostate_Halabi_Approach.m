@@ -27,7 +27,7 @@ charlson_score = strcmp('Y',coreTable.CEREBACC)*1 + strcmp('Y',coreTable.CHF)*1 
 
 
 halabiTable.TOT_COMORB = [];
-halabiTable.CHARLSON = charlson_score;
+halabiTable.CHARLSON =  charlson_score;
 
 
 %% Calculate the DISEASE_SITE variable
