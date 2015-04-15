@@ -8,7 +8,7 @@ featNames = {'STUDYID','LKADT_P','DEATH','RACE_C','AGEGRP','BMI',...
     'BLADDER','PERITONEUM','COLON','SOFT_TISSUE','ABDOMINAL','LDH','WBC',...
     'AST','TBILI','PLT','HB','ALT','TESTO','PSA','ALP'};
 
-coreTable = readtable('..\Data\CoreTable_training_22_feats_Halabi.csv','TreatAsEmpty',{'','.','""'});
+coreTable = readtable('..\..\data\CoreTable_training_22_feats_Halabi.csv','TreatAsEmpty',{'','.','""'});
 
 varIndx = zeros(length(featNames),1);
 for i=1:length(featNames),
@@ -61,8 +61,8 @@ f22_feat_names = {'RACE_C','AGEGRP','BMI','PRIOR_RADIOTHERAPY','ANALGESICS','ECO
     'AST','TBILI','PLT','HB','ALT','TESTO','PSA','ALP'};
 all_featNames = featNames;
 
-save('..\Data\halabi_feats_table.mat', 'halabiTable', 'all_featNames', 'f22_feat_names');
-save('..\Data\halabi_22_feat_names.mat','f22_feat_names');
-writetable(halabiTable, '..\Data\halabi_feats_table_4_9_15.csv');
+save('..\..\data\halabi_feats_table.mat', 'halabiTable', 'all_featNames', 'f22_feat_names');
+save('..\..\data\halabi_22_feat_names.mat','f22_feat_names');
+writetable(halabiTable, '..\..\data\halabi_feats_table_4_9_15.csv');
 
 tt=1;
