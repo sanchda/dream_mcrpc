@@ -9,12 +9,7 @@ featNames = {'STUDYID','LKADT_P','DEATH','RACE_C','AGEGRP','BMI',...
     'AST','TBILI','PLT','HB','ALT','TESTO','PSA','ALP'};
 
 coreTable = readtable('..\..\data\CoreTable_training_22_feats_Halabi.csv','TreatAsEmpty',{'','.','""'});
-
-varIndx = zeros(length(featNames),1);
-for i=1:length(featNames),
-    varIndx(i) = find(strcmp(coreTable.Properties.VariableNames,featNames{i}));
-end
-halabiTable = coreTable(:,varIndx);
+halabiTable = coreTable( :, ismember(coreTable.Properties.VariableNames, featNames ) );
 
 %% Calculate Charlson comorbidity index based on available comorbidity types
 tumorCols = {'BONE','RECTAL','LYMPH_NODES','KIDNEYS','LUNGS','LIVER','PLEURA',...
