@@ -60,5 +60,5 @@ writetable(halabiTable, '..\..\data\halabi_feats_table_4_9_15.csv');
 % separate file
 halabi22feats = halabiTable(:,f22_feat_names);
 halabi22feats.SURV_TIME = halabiTable.LKADT_P;
-halabi22feats.CENCOR = halabiTable.DEATH;
+halabi22feats.DEATH = halabiTable.DEATH;
 writetable(halabi22feats,'..\..\data\halabi_22_feats_4_15_15.csv');
