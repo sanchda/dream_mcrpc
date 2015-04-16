@@ -7,43 +7,36 @@ halabiTable = readtable('../../data/halabi_feats_table_4_9_15.csv');
 load('../../data/halabi_22_feat_names.mat'); % loads f22_feat_names
 
 A = halabiTable;
-B = nan(height(A), width(A));
+B = array2table( nan(height(A), width(A)),  'VariableNames',A.Properties.VariableNames);
 
 % Prepare linear index for referencing into B (probably not needed, but
 % whatever)
 varIdx = array2table( 1:width(A) , 'VariableNames',A.Properties.VariableNames);
 
+
 %% Process categorical columns
 % STUDYID
-i=1;
 studyClasses = unique(A.STUDYID);
 classIdx = 1:numel(studyClasses);
-B(:,1) = 0;
+B.STUDYID = 0*(B.STUDYID);
 for j = classIdx
-    B(ismember( A.STUDYID, studyClasses(j)), 1) = j;
+    B.STUDYID( ismember( A.STUDYID, studyClasses(j) ) ) = j;
 end
 
 % LKADT_P
-i=2;
-B(:,i) = A.LKADT_P;
+B.LKADT_P = A.LKADT_P;
 
 % DEATH
-i = varIdx.DEATH;
-i = 3; % Nope!
-B(:, i) = 0;
-B(ismember( A.DEATH, 'Yes'), i) = 1;
+B.DEATH = 0*(B.STUDYID);
+B.DEATH( ismember( A.DEATH, 'Yes' ) ) = 1;
 
 % RACE_C
-i = varIdx.RACE_C;
-i = 4; % Nope!
-B(:, i) = 1;
-B(~ismember(A.RACE_C, 'White'), i) = 0;
+B.RACE_C = 1*(B.STUDYID);
+B.RACE_C( ~ismember( A.RACE_C, 'White') ) = 0;
 
 % PRIOR_RADIOTHERAPY
-i = varIdx.PRIOR_RADIOTHERAPY;
-i = 9; % Nope!
-B(:, i) = 0;
-B(ismember( A.PRIOR_RADIOTHERAPY, 'Y'), i) = 1;
+B.PRIOR_RADIOTHERAPY = 0*(B.STUDYID);
+B.PRIOR_RADIOTHERAPY( ismember( A.PRIOR_RADIOTHERAPY, 'Y') ) = 1;
 
 % ANALGESICS
 i = varIdx.ANALGESICS;
