@@ -1,85 +1,59 @@
-function [] = dreamclean()
+function [varIdx] = dreamclean()
 %This puts the data into a nice parallelized fashion: No 'Y' and "Yes", for
 %instance
 
 %% Load data, define output structures
 halabiTable = readtable('../../data/halabi_feats_table_4_9_15.csv'); 
-load('../../data/halabi_22_feat_names.mat')
-idx_22 = 
+load('../../data/halabi_22_feat_names.mat'); % loads f22_feat_names
 
-A = halabiTable;
-B = nan(height(A), width(A));
 
-% Prepare linear index for referencing into B (probably not needed, but
-% whatever)
-varIdx = array2table( 1:width(A) , 'VariableNames',A.Properties.VariableNames);
+varNames = halabiTable.Properties.VariableNames;
+varNames = varNames( ~ismember( varNames, 'ECOG_C' ) );
+varNames = [varNames, 'ECOG_C'];
+
+A = halabiTable(:, varNames);
+B = array2table( nan(height(A), width(A)),  'VariableNames',A.Properties.VariableNames);
+
+% Create a list of unprocessed variables
+rawVars = B.Properties.VariableNames;
+
 
 %% Process categorical columns
 % STUDYID
-i=1;
 studyClasses = unique(A.STUDYID);
 classIdx = 1:numel(studyClasses);
-B(:,1) = 0;
+B.STUDYID = 0*(B.STUDYID);
 for j = classIdx
-    B(ismember( A.STUDYID, studyClasses(j)), 1) = j;
+    B.STUDYID( ismember( A.STUDYID, studyClasses(j) ) ) = j;
 end
+rawVars( ismember( rawVars, 'STUDYID' ) ) = [];
 
 % LKADT_P
-i=2;
-B(:,i) = A.LKADT_P;
+B.LKADT_P = A.LKADT_P;
+rawVars( ismember( rawVars, 'LKADT_P' ) ) = [];
 
 % DEATH
-i = varIdx.DEATH;
-i = 3; % Nope!
-B(:, i) = 0;
-B(ismember( A.DEATH, 'Yes'), i) = 1;
+B.DEATH = 0*(B.STUDYID);
+B.DEATH( ismember( A.DEATH, 'Yes' ) ) = 1;
+rawVars( ismember( rawVars, 'DEATH' ) ) = [];
 
 % RACE_C
-i = varIdx.RACE_C;
-i = 4; % Nope!
-B(:, i) = 1;
-B(~ismember(A.RACE_C, 'White'), i) = 0;
+B.RACE_C = 1*(B.STUDYID);
+B.RACE_C( ~ismember( A.RACE_C, 'White') ) = 0;
+rawVars( ismember( rawVars, 'RACE_C' ) ) = [];
 
 % PRIOR_RADIOTHERAPY
-i = varIdx.PRIOR_RADIOTHERAPY;
-i = 9; % Nope!
-B(:, i) = 0;
-B(ismember( A.PRIOR_RADIOTHERAPY, 'Y'), i) = 1;
+B.PRIOR_RADIOTHERAPY = 0*(B.STUDYID);
+B.PRIOR_RADIOTHERAPY( ismember( A.PRIOR_RADIOTHERAPY, 'Y') ) = 1;
+rawVars( ismember( rawVars, 'PRIOR_RADIOTHERAPY' ) ) = [];
 
 % ANALGESICS
-i = varIdx.ANALGESICS;
-i = 10; % Nope!
-B(:, i) = 0;
-B(ismember( A.ANALGESICS, 'Y'), i) = 1;
-
-% ECOG_C
-B(:, 11) = A.ECOG_C;
-
-% % ECOG_C, class 1
-% unique_c = unique ( A.ECOG_C );
-% i = varIdx.ECOG_C;
-% i = 11; % Nope!
-% B(:, i) = 0;
-% B(ismember( A.ECOG_C, 0 ), i) = 1;
-% 
-% % ECOG_C, class 2
-% i = 12; % Nope!
-% B(:, i) = 0;
-% B(ismember( A.ECOG_C, 1), i) = 1;
-% 
-% % ECOG_C, class 3
-% i = 13; % Nope!
-% B(:, i) = 0;
-% B(ismember( A.ECOG_C, 2), i) = 1;
-
-% ALB
-B(: , 14) = A.ALB;
-
-% ALP
-B(:, 38) = A.TESTO;
+B.ANALGESICS = 0*(B.STUDYID);
+B.ANALGESICS( ismember( A.ANALGESICS, 'Y') ) = 1;
+rawVars( ismember( rawVars, 'ANALGESICS' ) ) = [];
 
 % Other categoricals
-theseColsB = 15:30;
+catCols = 
 theseColsA = A.Properties.VariableNames( (theseColsB) );
 thisIdx = 1:numel(theseColsB);
 
@@ -104,7 +78,7 @@ B(:,39:43) = A{:,39:43};
 for i = 1:numel(B(1,:))
     
    if sum( isnan( B(:,i) ) ) > 0
-      B(~isnan( B(:,i)),i) = nanmean( B(:,i) );
+      B(isnan( B(:,i)),i) = nanmean( B(:,i) );
       disp(i);
    end
       

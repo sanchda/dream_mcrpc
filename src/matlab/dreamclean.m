@@ -6,12 +6,16 @@ function [varIdx] = dreamclean()
 halabiTable = readtable('../../data/halabi_feats_table_4_9_15.csv'); 
 load('../../data/halabi_22_feat_names.mat'); % loads f22_feat_names
 
-A = halabiTable;
+
+varNames = halabiTable.Properties.VariableNames;
+varNames = varNames( ~ismember( varNames, 'ECOG_C' ) );
+varNames = [varNames, 'ECOG_C'];
+
+A = halabiTable(:, varNames);
 B = array2table( nan(height(A), width(A)),  'VariableNames',A.Properties.VariableNames);
 
-% Prepare linear index for referencing into B (probably not needed, but
-% whatever)
-varIdx = array2table( 1:width(A) , 'VariableNames',A.Properties.VariableNames);
+% Create a list of unprocessed variables
+rawVars = B.Properties.VariableNames;
 
 
 %% Process categorical columns
@@ -22,64 +26,40 @@ B.STUDYID = 0*(B.STUDYID);
 for j = classIdx
     B.STUDYID( ismember( A.STUDYID, studyClasses(j) ) ) = j;
 end
+rawVars( ismember( rawVars, 'STUDYID' ) ) = [];
 
 % LKADT_P
 B.LKADT_P = A.LKADT_P;
+rawVars( ismember( rawVars, 'LKADT_P' ) ) = [];
 
 % DEATH
 B.DEATH = 0*(B.STUDYID);
 B.DEATH( ismember( A.DEATH, 'Yes' ) ) = 1;
+rawVars( ismember( rawVars, 'DEATH' ) ) = [];
 
 % RACE_C
 B.RACE_C = 1*(B.STUDYID);
 B.RACE_C( ~ismember( A.RACE_C, 'White') ) = 0;
+rawVars( ismember( rawVars, 'RACE_C' ) ) = [];
 
 % PRIOR_RADIOTHERAPY
 B.PRIOR_RADIOTHERAPY = 0*(B.STUDYID);
 B.PRIOR_RADIOTHERAPY( ismember( A.PRIOR_RADIOTHERAPY, 'Y') ) = 1;
+rawVars( ismember( rawVars, 'PRIOR_RADIOTHERAPY' ) ) = [];
 
 % ANALGESICS
-i = varIdx.ANALGESICS;
-i = 10; % Nope!
-B(:, i) = 0;
-B(ismember( A.ANALGESICS, 'Y'), i) = 1;
+B.ANALGESICS = 0*(B.STUDYID);
+B.ANALGESICS( ismember( A.ANALGESICS, 'Y') ) = 1;
+rawVars( ismember( rawVars, 'ANALGESICS' ) ) = [];
 
-% ECOG_C
-B(:, 11) = A.ECOG_C;
+% Other Y/N categoricals
+catCols = halabiTable.Properties.VariableNames( 15:30 );
 
-% % ECOG_C, class 1
-% unique_c = unique ( A.ECOG_C );
-% i = varIdx.ECOG_C;
-% i = 11; % Nope!
-% B(:, i) = 0;
-% B(ismember( A.ECOG_C, 0 ), i) = 1;
-% 
-% % ECOG_C, class 2
-% i = 12; % Nope!
-% B(:, i) = 0;
-% B(ismember( A.ECOG_C, 1), i) = 1;
-% 
-% % ECOG_C, class 3
-% i = 13; % Nope!
-% B(:, i) = 0;
-% B(ismember( A.ECOG_C, 2), i) = 1;
-
-% ALB
-B(: , 14) = A.ALB;
-
-% ALP
-B(:, 38) = A.TESTO;
-
-% Other categoricals
-theseColsB = 15:30;
-theseColsA = A.Properties.VariableNames( (theseColsB) );
-thisIdx = 1:numel(theseColsB);
-
-for i = thisIdx
-    i_B = theseColsB( i );
-    i_A = theseColsA( i );
-    B( :, i_B ) = 0;
-    B( ismember( A{ :, i_A }, 'Y' ), i_B ) = 1;
+for i = 1:numel(catCols)
+    i_Col = catCols(i);
+    B.( i ) = 0*(B.STUDYID);
+%    B( ismember( A{ :, i_Col }, 'Y' ), i_Col ) = 1;
+%    rawVars( ismember( rawVars, i_Col ) ) = [];
 end
 
 %% Verbatim copy of real-valued columns
