@@ -100,7 +100,7 @@ B(:,41:45) = A{:,39:43};
 for i = 1:numel(B(1,:))
     
    if sum( isnan( B(:,i) ) ) > 0
-      B(:,i) = nanmean( B(:,i) );
+      B(~isnan( B(:,i)),i) = nanmean( B(:,i) );
       disp(i);
    end
       
