@@ -6,7 +6,6 @@ function [varIdx] = dreamclean()
 halabiTable = readtable('../../data/halabi_feats_table_4_9_15.csv'); 
 load('../../data/halabi_22_feat_names.mat'); % loads f22_feat_names
 
-
 varNames = halabiTable.Properties.VariableNames;
 varNames = varNames( ~ismember( varNames, 'ECOG_C' ) );
 varNames = [varNames, 'ECOG_C'];
@@ -55,38 +54,42 @@ rawVars( ismember( rawVars, 'ANALGESICS' ) ) = [];
 % Other Y/N categoricals
 catCols = halabiTable.Properties.VariableNames( 15:30 );
 
+% Enjoy the ugly table indexing!!!
 for i = 1:numel(catCols)
     i_Col = catCols(i);
-    B.( i ) = 0*(B.STUDYID);
-%    B( ismember( A{ :, i_Col }, 'Y' ), i_Col ) = 1;
-%    rawVars( ismember( rawVars, i_Col ) ) = [];
+    B.( i_Col{:} ) = 0*(B.STUDYID);
+    B.( i_Col{:} )( ismember( A{ :, i_Col }, 'Y' ) ) = 1; 
+    rawVars( ismember( rawVars, i_Col ) ) = [];
 end
 
+
 %% Verbatim copy of real-valued columns
-B(:,5:8) = A{:,5:8};
-
-B(:,12:13) = A{:,12:13};
-
-B(:,31:37) = A{:,31:37};
-
-B(:,39:43) = A{:,39:43};
+B(:, rawVars) = A(:, rawVars);
 
 
 %% Impute NaNs
 for i = 1:numel(B(1,:))
     
-   if sum( isnan( B(:,i) ) ) > 0
-      B(isnan( B(:,i)),i) = nanmean( B(:,i) );
+   if sum( isnan( B.(i) ) ) > 0
+      B.( i)( isnan( B.(i) ) ) = nanmean( B.( i ) );
       disp(i);
    end
       
 end
 
+
 %% Write to file
-ind_var = B(:,[1 4:numel(B(1,:))]);
-censoring = B(:,3);
-surv_var = B(:,2);
+indNames = varNames( ~ismember( varNames, {'STUDYID', 'LKADT_P', 'DEATH'}));
+indNames22 = f22_feat_names;
+survName = {'LKADT_P'};
+censorName = {'DEATH'};
+
+ind_var   = B(:, indNames );
+ind_var22 = B(:, indNames22 );
+censoring = B(:, censorName );
+surv_var  = B(:, survName);
 
 save('../../data/cleaned_ind.mat', 'ind_var');
 save('../../data/cleaned_censor.mat', 'censoring');
 save('../../data/cleaned_surv.mat', 'surv_var');
+save('../../data/cleaned_ind22.mat', 'ind_var22');
