@@ -9,4 +9,4 @@ features = readMat('../../data/cleaned_ind.mat');
 
 # Run the cox alasso model!
 source("cox_alasso.R");
-result = alasso_cox(NN = 10, survival$surv.var, censor$censoring, features$ind.var, 1)
+result = alasso_cox(NN = 1, survival$surv.var, censor$censoring, features$ind.var, 1)
