@@ -6,13 +6,8 @@ function [varIdx] = dreamclean()
 halabiTable = readtable('../../data/halabi_feats_table_4_9_15.csv'); 
 load('../../data/halabi_22_feat_names.mat'); % loads f22_feat_names
 
-% Move ECOG_C to the end of the data frame
-varNames = halabiTable.Properties.VariableNames;
-varNames = varNames( ~ismember( varNames, 'ECOG_C') );
-varNames = [varNames, 'ECOG_C'];
-
-A = halabiTable(:, varNames);
-B = nan(height(A), width(A)+2);
+A = halabiTable;
+B = nan(height(A), width(A));
 
 % Prepare linear index for referencing into B (probably not needed, but
 % whatever)
@@ -115,9 +110,9 @@ for i = 1:numel(B(1,:))
 end
 
 %% Write to file
-ind_var = B(:, [1 4:numel(B(1,:))] );
-censoring = B(:, 3);
-surv_var = B(:, 2);
+ind_var = B(:,[1 4:numel(B(1,:))]);
+censoring = B(:,3);
+surv_var = B(:,2);
 
 save('../../data/cleaned_ind.mat', 'ind_var');
 save('../../data/cleaned_censor.mat', 'censoring');
