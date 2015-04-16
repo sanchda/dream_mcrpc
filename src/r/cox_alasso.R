@@ -40,7 +40,6 @@ ddloglik = function(n,delta,z,beta){
   return(L) 
 }  
 
-
 ginv = function(X, tol = sqrt(.Machine$double.eps)){
   s = svd(X)
   nz = s$d > tol * s$d[1]
@@ -52,7 +51,6 @@ normalize = function(x){
   y = (x-mean(x))/sqrt(sum((x-mean(x))^2))
   return(y)
 }
-
 
 wshoot <- function(n,p,x,y,init,weight,lambda,maxiter,tol)
 {
@@ -99,7 +97,11 @@ lse <- function(x,y)
   beta
 }
 
-
+# lambda is a penalty (assumed to be >=0)
+# z is the covariates (independent variables)
+# delta is the censoring
+# time is the target variable
+# 
 alasso_cox <- function(NN = 10, time, delta, z, lambda)
 {
     iter = 100
@@ -111,6 +113,7 @@ alasso_cox <- function(NN = 10, time, delta, z, lambda)
     ordz = z[order(time),] 
     z = apply(ordz,2,normalize)
     sd = sqrt(apply(z,2,var)*(n-1))
+	
     #computing initial estimates
     ii = 0
     beta = numeric(p)
@@ -130,6 +133,7 @@ alasso_cox <- function(NN = 10, time, delta, z, lambda)
       beta = beta1
     }
     inibeta = beta
+	
     #computing adaptive-Lasso solutions
     sd = sd/abs(inibeta)
     ii = 0
