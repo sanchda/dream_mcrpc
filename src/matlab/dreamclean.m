@@ -1,8 +1,7 @@
 %This puts the data into a nice parallelized fashion: No 'Y' and "Yes", for
 %instance
 
-%Load the file halabi_22_feature_data.csv
-
+%% Load data, define output structures
 halabiTable = readtable('../../data/halabi_feats_table_4_9_15.csv'); 
 load('../../data/halabi_22_feat_names.mat')
 
@@ -13,6 +12,7 @@ B = nan(height(A), width(A)+2);
 % whatever)
 varIdx = array2table( 1:width(A) , 'VariableNames',A.Properties.VariableNames);
 
+%% Process categorical columns
 % STUDYID
 i=1;
 studyClasses = unique(A.STUDYID);
@@ -68,10 +68,10 @@ B(:, i) = 0;
 B(ismember( A.ECOG_C, 2), i) = 1;
 
 % ALB
-B( ~ismember(A.ALB, 'NaN'), 16) = str2double( A.ALB( ~ismember( A.ALB, 'NaN')));
+B(: , 16) = A.ALB;
 
 % ALP
-B( ~ismember(A.ALP, 'NaN'), 40) = str2double( A.ALP( ~ismember( A.ALP, 'NaN')));
+B(:, 40) = A.ALP;
 
 % Other categoricals
 theseColsB = 17:32;
@@ -86,11 +86,7 @@ for i = thisIdx
 end
 
 
-
-
-% THIS IS A HUGE QUESTION MARK
-% TODO: FIX
-
+%% Verbatim copy of real-valued columns
 B(:,5:8) = A{:,5:8};
 
 B(:,14:15) = A{:,12:13};
@@ -98,3 +94,16 @@ B(:,14:15) = A{:,12:13};
 B(:,33:39) = A{:,31:37};
 
 B(:,41:45) = A{:,39:43};
+
+
+%% Impute NaNs
+for i = 1:numel(B(1,:))
+    
+   if sum( isnan( B(:,i) ) ) > 0
+      B(:,i) = nanmean( B(:,i) );
+      disp(i);
+   end
+      
+end
+
+%% Write to file

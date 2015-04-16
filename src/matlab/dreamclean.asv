@@ -1,18 +1,18 @@
 %This puts the data into a nice parallelized fashion: No 'Y' and "Yes", for
 %instance
 
-%Load the file halabi_22_feature_data.csv
-
+%% Load data, define output structures
 halabiTable = readtable('../../data/halabi_feats_table_4_9_15.csv'); 
 load('../../data/halabi_22_feat_names.mat')
 
 A = halabiTable;
-B = nan(height(A), width(A));
+B = nan(height(A), width(A)+2);
 
 % Prepare linear index for referencing into B (probably not needed, but
 % whatever)
 varIdx = array2table( 1:width(A) , 'VariableNames',A.Properties.VariableNames);
 
+%% Process categorical columns
 % STUDYID
 i=1;
 studyClasses = unique(A.STUDYID);
@@ -81,22 +81,12 @@ thisIdx = 1:numel(theseColsB);
 for i = thisIdx
     i_B = theseColsB( i );
     i_A = theseColsA( i );
-    
-    
+    B( :, i_B ) = 0;
+    B( ismember( A{ :, i_A }, 'Y' ), i_B ) = 1;
 end
 
 
-   for j= 17:32
-    if strcmp(A{i,j-2},'Y')
-            B(i,j) = 1;
-        else
-            B(i,j) = 0;
-    end
-   
-   end
-   
-
-
+%% Verbatim copy of real-valued columns
 B(:,5:8) = A{:,5:8};
 
 B(:,14:15) = A{:,12:13};
@@ -104,3 +94,12 @@ B(:,14:15) = A{:,12:13};
 B(:,33:39) = A{:,31:37};
 
 B(:,41:45) = A{:,39:43};
+
+
+%% Impute NaNs
+for i = 1:numel(B(1,:))
+   if sum( isnan( B(:,i) ) ) > 0
+      B(:,i) = mean
+   end
+    
+end
