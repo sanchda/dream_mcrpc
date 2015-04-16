@@ -6,8 +6,10 @@ coxphopt = statset('coxphfit');
 coxphopt.Display = 'final';
 coxphopt.MaxIter = 50;
 
-% The order of the input parameters are X (data), Time, Censor
+% The order of the input parameters are X, Time, Censor
 b = coxphfit( ind_mat, dep_col, 'censoring', cen_col, 'options',coxphopt );
+
+
 
 end
 

@@ -1,12 +1,13 @@
+function [varIdx] = dreamclean()
 %This puts the data into a nice parallelized fashion: No 'Y' and "Yes", for
 %instance
 
 %% Load data, define output structures
 halabiTable = readtable('../../data/halabi_feats_table_4_9_15.csv'); 
-load('../../data/halabi_22_feat_names.mat')
+load('../../data/halabi_22_feat_names.mat'); % loads f22_feat_names
 
 A = halabiTable;
-B = nan(height(A), width(A)+2);
+B = nan(height(A), width(A));
 
 % Prepare linear index for referencing into B (probably not needed, but
 % whatever)
@@ -50,32 +51,35 @@ i = 10; % Nope!
 B(:, i) = 0;
 B(ismember( A.ANALGESICS, 'Y'), i) = 1;
 
-% ECOG_C, class 1
-unique_c = unique ( A.ECOG_C );
-i = varIdx.ECOG_C;
-i = 11; % Nope!
-B(:, i) = 0;
-B(ismember( A.ECOG_C, 0 ), i) = 1;
+% ECOG_C
+B(:, 11) = A.ECOG_C;
 
-% ECOG_C, class 2
-i = 12; % Nope!
-B(:, i) = 0;
-B(ismember( A.ECOG_C, 1), i) = 1;
-
-% ECOG_C, class 3
-i = 13; % Nope!
-B(:, i) = 0;
-B(ismember( A.ECOG_C, 2), i) = 1;
+% % ECOG_C, class 1
+% unique_c = unique ( A.ECOG_C );
+% i = varIdx.ECOG_C;
+% i = 11; % Nope!
+% B(:, i) = 0;
+% B(ismember( A.ECOG_C, 0 ), i) = 1;
+% 
+% % ECOG_C, class 2
+% i = 12; % Nope!
+% B(:, i) = 0;
+% B(ismember( A.ECOG_C, 1), i) = 1;
+% 
+% % ECOG_C, class 3
+% i = 13; % Nope!
+% B(:, i) = 0;
+% B(ismember( A.ECOG_C, 2), i) = 1;
 
 % ALB
-B(: , 16) = A.ALB;
+B(: , 14) = A.ALB;
 
 % ALP
-B(:, 40) = A.ALP;
+B(:, 38) = A.TESTO;
 
 % Other categoricals
-theseColsB = 17:32;
-theseColsA = A.Properties.VariableNames( (theseColsB) - 2 );
+theseColsB = 15:30;
+theseColsA = A.Properties.VariableNames( (theseColsB) );
 thisIdx = 1:numel(theseColsB);
 
 for i = thisIdx
@@ -85,22 +89,21 @@ for i = thisIdx
     B( ismember( A{ :, i_A }, 'Y' ), i_B ) = 1;
 end
 
-
 %% Verbatim copy of real-valued columns
 B(:,5:8) = A{:,5:8};
 
-B(:,14:15) = A{:,12:13};
+B(:,12:13) = A{:,12:13};
 
-B(:,33:39) = A{:,31:37};
+B(:,31:37) = A{:,31:37};
 
-B(:,41:45) = A{:,39:43};
+B(:,39:43) = A{:,39:43};
 
 
 %% Impute NaNs
 for i = 1:numel(B(1,:))
     
    if sum( isnan( B(:,i) ) ) > 0
-      B(~isnan( B(:,i)),i) = nanmean( B(:,i) );
+      B(isnan( B(:,i)),i) = nanmean( B(:,i) );
       disp(i);
    end
       
