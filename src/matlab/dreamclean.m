@@ -84,10 +84,10 @@ indNames22 = f22_feat_names;
 survName = {'LKADT_P'};
 censorName = {'DEATH'};
 
-ind_var   = B(:, indNames );
-ind_var22 = B(:, indNames22 );
-censoring = B(:, censorName );
-surv_var  = B(:, survName);
+ind_var   = table2array( B(:, indNames )   );
+ind_var22 = table2array( B(:, indNames22 ) );
+censoring = table2array( B(:, censorName ) );
+surv_var  = table2array( B(:, survName)    );
 
 save('../../data/cleaned_ind.mat', 'ind_var');
 save('../../data/cleaned_censor.mat', 'censoring');
