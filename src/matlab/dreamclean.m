@@ -5,7 +5,12 @@
 halabiTable = readtable('../../data/halabi_feats_table_4_9_15.csv'); 
 load('../../data/halabi_22_feat_names.mat')
 
-A = halabiTable;
+% Move ECOG_C to the end of the data frame
+varNames = halabiTable.Properties.VariableNames;
+varNames = varNames( ~ismember( varNames, 'ECOG_C') );
+varNames = [varNames, 'ECOG_C'];
+
+A = halabiTable(:, varNames);
 B = nan(height(A), width(A)+2);
 
 % Prepare linear index for referencing into B (probably not needed, but
