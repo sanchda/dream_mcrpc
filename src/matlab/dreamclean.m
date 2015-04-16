@@ -107,3 +107,10 @@ for i = 1:numel(B(1,:))
 end
 
 %% Write to file
+ind_var = B(:,[1 4:numel(B(1,:))]);
+censoring = B(:,3);
+surv_var = B(:,2);
+
+save('../../data/cleaned_ind.mat', 'ind_var');
+save('../../data/cleaned_censor.mat', 'censoring');
+save('../../data/cleaned_surv.mat', 'surv_var');
