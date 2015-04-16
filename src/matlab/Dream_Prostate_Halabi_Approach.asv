@@ -24,9 +24,9 @@ halabi22feats.ANALGESICS = tmpCol;
 tmpCol = zeros(n,1);
 tmpCol(strcmp(halabi22feats.DEATH,'YES')) = 1;
 halabi22feats.DEATH = tmpCol;
-X = table2array(halabi22feats(:,1:21));
-SurvTime = halabi22feats.SURV_TIME;
-Censor = ones(n,1)-halabi22feats.DEATH;
+X = table2array(halabiTable(:,1:21));
+SurvTime = table2array(halabiTable.SURV_TIME);
+Censor = ~table2array(halabi22feats.DEATH);
 [b,logl,H,stats] = coxphfit(X,SurvTime,'censoring',Censor,'baseline',0);
 
 
