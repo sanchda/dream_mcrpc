@@ -64,7 +64,7 @@ ddloglik = function(n,delta,z,beta){
   expsums2_proto = apply( z, 1, function(x) x %*% t(x) * exp(sum( beta*x ) ) );
   expsums2 = list();
   for( i in 1:n ) {
-   expsums2[[i]] = matrix(expsums2_proto[,i],20,20);
+   expsums2[[i]] = matrix(expsums2_proto[,i],dim(z)[2],dim(z)[2]);
   }
   
   # Old, non-vectorized way
@@ -183,7 +183,6 @@ alasso_cox <- function(NN = 10, time, delta, z, lambda)
         X = nearestSPD(H);
         print( sprintf("Rounded H to nearest SPD: %f is difference in F norm", X$dist) );
         H = X$Ahat;
-
       }
 
       X = chol(H) 
