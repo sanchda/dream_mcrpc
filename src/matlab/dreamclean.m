@@ -48,7 +48,7 @@ rawVars( ismember( rawVars, 'PRIOR_RADIOTHERAPY' ) ) = [];
 
 % ANALGESICS
 B.ANALGESICS = 0*(B.STUDYID);
-B.ANALGESICS( ismember( A.ANALGESICS, 'Y') ) = 1;
+B.ANALGESICS( ismember( A.ANALGESICS, 'YES') ) = 1;
 rawVars( ismember( rawVars, 'ANALGESICS' ) ) = [];
 
 % Other Y/N categoricals

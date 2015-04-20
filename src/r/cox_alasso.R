@@ -1,23 +1,53 @@
 loglik = function(n,delta,z,beta){
+  expsums = apply( z, 1, function(x) exp(sum(beta*x)) );
+  
   L = 0.0
   for(i in 1:n){
-     temp = 0.0
-     for(j in i:n) temp = temp + exp(sum(beta*z[j,])) 
-     L = L - delta[i]*(sum(beta*z[i,])-log(temp))
+# Old, unvectorized way    
+#     temp = 0.0
+#     for(j in i:n) {
+#       temp = temp + exp(sum(beta*z[j,])) 
+#     }
+    
+    temp = sum( expsums[i:n] );
+    L = L - delta[i]*( sum(beta*z[i,]) - log(temp) )
+  }         
+  return(L)
+}
+
+loglik_old = function(n,delta,z,beta){
+  L = 0.0
+  for(i in 1:n){
+         temp = 0.0
+         for(j in i:n) {
+           temp = temp + exp(sum(beta*z[j,])) 
+         }
+
+    L = L - delta[i]*( sum(beta*z[i,]) - log(temp) )
   }         
   return(L)
 } 
 
+
 dloglik = function(n,delta,z,beta){
+    # Collect sums in single, easy-to-index place
+  expsums = apply( z, 1, function(x) exp(sum(beta*x)) );
+  expsums1 = apply( z, 1, function(x) x*exp(sum(beta*x)) );
+  
   p = length(beta)
   L = numeric(p)
+    
   for(i in 1:n){
-     temp = 0.0
-     temp1 = numeric(p)
-     for(j in i:n){
-        temp = temp + exp(sum(beta*z[j,]))
-        temp1 = temp1 + z[j,]*exp(sum(beta*z[j,]))
-     }
+# old, unvectorized way.
+#     temp = 0.0
+#     temp1 = numeric(p)
+#     for(j in i:n){
+#        temp = temp + exp(sum(beta*z[j,]))
+#        temp1 = temp1 + z[j,]*exp(sum(beta*z[j,]))
+#     }
+
+     temp  = expsums[i:n];
+     temp1 = expsums1[,i:n];
      L = L - delta[i]*(z[i,] - temp1/temp)
   }
   return(L) 
@@ -133,10 +163,7 @@ alasso_cox <- function(NN = 10, time, delta, z, lambda)
         H = X$Ahat;
 
       }
-      
-      
-      
-      
+
       X = chol(H) 
       vecY = forwardsolve(t(X),H%*%beta-G)
       lsbeta = lm(vecY~-1+X)$coef
