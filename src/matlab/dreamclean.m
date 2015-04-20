@@ -33,22 +33,22 @@ rawVars( ismember( rawVars, 'LKADT_P' ) ) = [];
 
 % DEATH
 B.DEATH = 0*(B.STUDYID);
-B.DEATH( ismember( A.DEATH, 'Yes' ) ) = 1;
+B.DEATH( ismember( lower(A.DEATH), 'yes' ) ) = 1;
 rawVars( ismember( rawVars, 'DEATH' ) ) = [];
 
 % RACE_C
 B.RACE_C = 1*(B.STUDYID);
-B.RACE_C( ~ismember( A.RACE_C, 'White') ) = 0;
+B.RACE_C( ~ismember( lower(A.RACE_C), 'white') ) = 0;
 rawVars( ismember( rawVars, 'RACE_C' ) ) = [];
 
 % PRIOR_RADIOTHERAPY
 B.PRIOR_RADIOTHERAPY = 0*(B.STUDYID);
-B.PRIOR_RADIOTHERAPY( ismember( A.PRIOR_RADIOTHERAPY, 'Y') ) = 1;
+B.PRIOR_RADIOTHERAPY( ismember( lower(A.PRIOR_RADIOTHERAPY), 'y') ) = 1;
 rawVars( ismember( rawVars, 'PRIOR_RADIOTHERAPY' ) ) = [];
 
 % ANALGESICS
 B.ANALGESICS = 0*(B.STUDYID);
-B.ANALGESICS( ismember( A.ANALGESICS, 'YES') ) = 1;
+B.ANALGESICS( ismember( lower(A.ANALGESICS), 'yes') ) = 1;
 rawVars( ismember( rawVars, 'ANALGESICS' ) ) = [];
 
 % Other Y/N categoricals
@@ -58,7 +58,7 @@ catCols = halabiTable.Properties.VariableNames( 15:30 );
 for i = 1:numel(catCols)
     i_Col = catCols(i);
     B.( i_Col{:} ) = 0*(B.STUDYID);
-    B.( i_Col{:} )( ismember( A{ :, i_Col }, 'Y' ) ) = 1; 
+    B.( i_Col{:} )( ismember( lower(A{ :, i_Col }), 'y' ) ) = 1; 
     rawVars( ismember( rawVars, i_Col ) ) = [];
 end
 
