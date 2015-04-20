@@ -122,6 +122,21 @@ alasso_cox <- function(NN = 10, time, delta, z, lambda)
       G=dloglik(n,delta,z,beta)
       H=ddloglik(n,delta,z,beta)
      
+      library(matrixcalc)
+      if( is.positive.definite(H) ) {
+        print("H is PD"); 
+      } else {
+        source("nearestSPD.r");
+        print( sprintf("H is not PD") );
+        X = nearestSPD(H);
+        print( sprintf("Rounded H to nearest SPD: %f is difference in F norm", X$dist) );
+        H = X$Ahat;
+
+      }
+      
+      
+      
+      
       X = chol(H) 
       vecY = forwardsolve(t(X),H%*%beta-G)
       lsbeta = lm(vecY~-1+X)$coef
