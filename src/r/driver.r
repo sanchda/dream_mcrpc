@@ -8,7 +8,10 @@ features22 = readMat('../../data/cleaned_ind22.mat');
 
 
 # Run the cox alasso model!
-source("cox_alasso.R");
+source("DAS_cox_alasso.r");
+result = alasso_cox(NN = 10, survival$surv.var, censor$censoring, features22$ind.var22, 1)
+
+source("halabi_cox_alasso.r");
 result = alasso_cox(NN = 10, survival$surv.var, censor$censoring, features22$ind.var22, 1)
 
 
