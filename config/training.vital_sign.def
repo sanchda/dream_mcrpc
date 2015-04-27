@@ -1,0 +1,43 @@
+CREATE TABLE training.vital_sign
+(
+	PER_REF_C	text,
+	DOMAIN	text,
+	STUDYID	text,
+	RPT	text,
+	VSTEST	text,
+	VSORRES	text,
+	VSORRESU	text,
+	VSSTRESC	text,
+	VSSTRESU	text,
+	VISIT	text,
+	VSBLFL	text,
+	VSACTPT	text,
+	VSACTPTN	numeric,
+	VSDRVFL	text,
+	VSSTRESN	numeric,
+	VSTESTCD	text,
+	VSDT_PC	numeric
+)
+WITH (
+  OIDS = FALSE
+)
+;
+ALTER TABLE training.vital_sign
+  OWNER TO dasanchez;
+COMMENT ON COLUMN training.vital_sign.PER_REF_C  IS 'Reference day for vital sign capture day (VSDT_PC) First treatment date for AZ and CELGENE, consent date for ASCENT2, randomization date for EFC6546';
+COMMENT ON COLUMN training.vital_sign.DOMAIN  IS 'Domain (table) Name Abbreviation';
+COMMENT ON COLUMN training.vital_sign.STUDYID  IS 'Study Identifier Value: EFC6546, CELGENE, ASCENT2, AZ';
+COMMENT ON COLUMN training.vital_sign.RPT  IS 'Patient ID (or dummy id)';
+COMMENT ON COLUMN training.vital_sign.VSTEST  IS 'Vital Signs Test Name';
+COMMENT ON COLUMN training.vital_sign.VSORRES  IS 'Result or Finding in Original Units Original value recorded for vital sign, use for reference';
+COMMENT ON COLUMN training.vital_sign.VSORRESU  IS 'Original Units';
+COMMENT ON COLUMN training.vital_sign.VSSTRESC  IS 'Character Result/Finding in STD format Standardized format of the test result, recommended field to use (Character)';
+COMMENT ON COLUMN training.vital_sign.VSSTRESU  IS 'Standard Units Unit for Standardized format of the test result, recommended to use';
+COMMENT ON COLUMN training.vital_sign.VISIT  IS 'Visit Name (Showing visit schedule)';
+COMMENT ON COLUMN training.vital_sign.VSBLFL  IS 'Baseline Flag This is the field to use for parcing out baseline vital sign.';
+COMMENT ON COLUMN training.vital_sign.VSACTPT  IS 'Actual Timepoint Name';
+COMMENT ON COLUMN training.vital_sign.VSACTPTN  IS 'Actual Timepoint Number';
+COMMENT ON COLUMN training.vital_sign.VSDRVFL  IS 'Derived Flag';
+COMMENT ON COLUMN training.vital_sign.VSSTRESN  IS 'Numeric Result/Finding in Standard units Standardized format of the test result, recommended to use (Numeric)';
+COMMENT ON COLUMN training.vital_sign.VSTESTCD  IS 'Vital Signs Test Short Name';
+COMMENT ON COLUMN training.vital_sign.VSDT_PC  IS 'Date taken period value in days relative day to reference day (first treatment date for AZ and CELGENE, consent date for ASCENT2, randomization date for EFC6546)';

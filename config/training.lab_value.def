@@ -1,0 +1,83 @@
+CREATE TABLE training.lab_value
+(
+	"DOMAIN"	text,
+	STUDYID	text,
+	RPT	text,
+	LBCAT	text,
+	LBTEST	text,
+	LBORRES	text,
+	LBORRESU	text,
+	LBTOXGRC	text,
+	LBORNRLO	text,
+	LBORNRHI	text,
+	LBMETHOD	text,
+	VISIT	text,
+	LBSTRESC	text,
+	LBSTNRLO	numeric,
+	LBSTNRHI	numeric,
+	LBTESTCD	text,
+	LBSCAT	text,
+	LBSTAT	text,
+	LBBLFL	text,
+	LBTOXGR	text,
+	LBTOXGRN	numeric,
+	LBNRIND	text,
+	LBNRIND2	text,
+	LBACPT	text,
+	LBTM	text,
+	LBTX	text,
+	LBDRVFL	text,
+	LBSTRECI	text,
+	LBSTREIU	text,
+	LBSTRENI	numeric,
+	LBSTRESN	numeric,
+	LBSTRESU	text,
+	LBORNRU	text,
+	LBSTNRC	text,
+	LBDT_PC	numeric,
+	PER_REF_C	text
+)
+WITH (
+  OIDS = FALSE
+)
+;
+ALTER TABLE training.lab_value
+  OWNER TO dasanchez;
+COMMENT ON TABLE training.lab_value
+  IS 'Table of lab values, training';
+  COMMENT ON COLUMN training.lab_value.PER_REF_C IS 'Reference day for Lab collection day (LBDT_PC)	Mostly first treatment date, small number of patients use consent date';
+COMMENT ON COLUMN training.lab_value."DOMAIN" IS 'Domain (table) Name Abbreviation';
+COMMENT ON COLUMN training.lab_value.STUDYID IS 'Study Identifier	Value: EFC6546, CELGENE, ASCENT2, AZ';
+COMMENT ON COLUMN training.lab_value.RPT IS 'Patient ID (or dummy id)';
+COMMENT ON COLUMN training.lab_value.LBCAT IS 'Category for Lab Test';
+COMMENT ON COLUMN training.lab_value.LBTEST IS 'Lab Test or Examination Name	Test name, recommended field to use for analysis';
+COMMENT ON COLUMN training.lab_value.LBORRES IS 'Result or Finding in Original Units	Original result of the test, used for reference ';
+COMMENT ON COLUMN training.lab_value.LBORRESU IS 'Unit for the Original Test Result	Unit for original result of the test, used for reference ';
+COMMENT ON COLUMN training.lab_value.LBTOXGRC IS 'Standard Toxicity Grade textacter Value	Grade 1 (Mild), Grade 2 (Moderate), Grade 3 (Severe), Grade 4 (Potentially life threatening)';
+COMMENT ON COLUMN training.lab_value.LBORNRLO IS 'Reference Range Lower Limit in Orig Test Result';
+COMMENT ON COLUMN training.lab_value.LBORNRHI IS 'Reference Range Upper Limit in Orig Test Result';
+COMMENT ON COLUMN training.lab_value.LBMETHOD IS 'Method of Test or Collection';
+COMMENT ON COLUMN training.lab_value.VISIT IS 'Visit Name (Showing visit schedule)';
+COMMENT ON COLUMN training.lab_value.LBSTRESC IS 'textacter Result/Finding in STD format	Standardized format of the test result, recommended field to use (textacter)';
+COMMENT ON COLUMN training.lab_value.LBSTNRLO IS 'Reference Range Lower Limit- Std Units';
+COMMENT ON COLUMN training.lab_value.LBSTNRHI IS 'Reference Range Upper Limit- Std Units';
+COMMENT ON COLUMN training.lab_value.LBTESTCD IS 'Lab Test or Examination Short Name	Standardized code for test name, recommended field to use for analysis';
+COMMENT ON COLUMN training.lab_value.LBSCAT IS 'Subcategory for Lab Test';
+COMMENT ON COLUMN training.lab_value.LBSTAT IS 'Completion Status of the Lab Test	"NOT DONE" means labs scheduled but not performed, should have missing value in test result';
+COMMENT ON COLUMN training.lab_value.LBBLFL IS 'Baseline Flag for Lab Value	This is the field to use for parcing out baseline lab.';
+COMMENT ON COLUMN training.lab_value.LBTOXGR IS 'Standard Toxicity Grade';
+COMMENT ON COLUMN training.lab_value.LBTOXGRN IS 'Standard Toxicity Grade numericeric Code';
+COMMENT ON COLUMN training.lab_value.LBNRIND IS 'Reference Range Indicator	Study provided H/M/L flag (actual value could vary) for the test result according to Upper/Lower bound of range per study. Use with discretion.';
+COMMENT ON COLUMN training.lab_value.LBNRIND2 IS 'Reference Range Indicator Imputed 	Only available for StudyID=EFC6546';
+COMMENT ON COLUMN training.lab_value.LBACPT IS 'Actual Timepoint Name';
+COMMENT ON COLUMN training.lab_value.LBTM IS 'Time of Specimen Collection';
+COMMENT ON COLUMN training.lab_value.LBTX IS 'Time of Specimen Collection (text)';
+COMMENT ON COLUMN training.lab_value.LBDRVFL IS 'Flag for Derived value';
+COMMENT ON COLUMN training.lab_value.LBSTRECI IS 'Reporting textacter  Result/Finding';
+COMMENT ON COLUMN training.lab_value.LBSTREIU IS 'Reporting  Result/Finding Unit';
+COMMENT ON COLUMN training.lab_value.LBSTRENI IS 'numeric Result/Finding in Std Units Imputed';
+COMMENT ON COLUMN training.lab_value.LBSTRESN IS 'numericeric Result/Finding in Standard units	Standardized format of the test result, recommended to use (numericeric)';
+COMMENT ON COLUMN training.lab_value.LBSTRESU IS 'Standard Units	Unit for Standardized format of the test result, recommended to use';
+COMMENT ON COLUMN training.lab_value.LBORNRU IS 'Original Units for Reference Range';
+COMMENT ON COLUMN training.lab_value.LBSTNRC IS 'Reference Range for text Rslt-Std Units';
+COMMENT ON COLUMN training.lab_value.LBDT_PC IS 'Date specimen collected period value in days	relative days from reference day (first treatment date for most patients)';

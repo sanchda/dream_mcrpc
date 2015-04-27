@@ -1,0 +1,59 @@
+CREATE TABLE training.med_history
+(
+	DOMAIN	text,
+	STUDYID	text,
+	RPT	text,
+	MHTERM	text,
+	MHDECOD	text,
+	MHBODSYS	text,
+	MHSTDT_P	numeric,
+	MHLLT	text,
+	MHHLT	text,
+	MHHLGT	text,
+	MHDICTV	text,
+	MHOCCUR	text,
+	MHPRESP	text,
+	MHENRF	text,
+	MHENRFO	text,
+	VISIT	text,
+	VISITnumeric	numeric,
+	MHCAT	text,
+	MHCONTR	text,
+	MHPTCD	text,
+	MHSOC1FL	text,
+	MHSOCCD	text,
+	MHHLGTCD	text,
+	MHHLTCD	text,
+	MHLLTCD	text
+)
+WITH (
+  OIDS = FALSE
+)
+;
+ALTER TABLE training.med_history
+  OWNER TO dasanchez;
+COMMENT ON COLUMN training.med_history.DOMAIN  IS 'Domain (table) Name Abbreviation';
+COMMENT ON COLUMN training.med_history.STUDYID  IS 'Study Identifier Value: EFC6546, CELGENE, ASCENT2, AZ';
+COMMENT ON COLUMN training.med_history.RPT  IS 'Patient ID (or dummy id)';
+COMMENT ON COLUMN training.med_history.MHTERM  IS 'Reported Term for the Medical History original verbatim of the medical diagnosis for reference';
+COMMENT ON COLUMN training.med_history.MHDECOD  IS 'Dictionary-Derived Term Standardized version of the medical diagnosis, recommended field to use';
+COMMENT ON COLUMN training.med_history.MHBODSYS  IS 'Body System or Organ Class Medical condition classification (highest level)';
+COMMENT ON COLUMN training.med_history.MHSTDT_P  IS 'Start Event Date period value in days relative days to reference day (randomization or consent date)';
+COMMENT ON COLUMN training.med_history.MHLLT  IS 'Lowest Level Term Medical condition classification (lowest level)';
+COMMENT ON COLUMN training.med_history.MHHLT  IS 'High Level Term Medical condition classification';
+COMMENT ON COLUMN training.med_history.MHHLGT  IS 'High Level Group Term Medical condition classification';
+COMMENT ON COLUMN training.med_history.MHDICTV  IS 'Dictionary Version';
+COMMENT ON COLUMN training.med_history.MHOCCUR  IS 'Medical History Occurrence Only available for ASCENT2 and EFC6546';
+COMMENT ON COLUMN training.med_history.MHPRESP  IS 'Medical History Event Pre-Specified Only available for ASCENT2 and EFC6546';
+COMMENT ON COLUMN training.med_history.MHENRF  IS 'End Relative to Reference Period "ONGOING" for conditions continue to exist into beginning of trial';
+COMMENT ON COLUMN training.med_history.MHENRFO  IS 'Other End Relative to Reference Period Only available for ASCENT2, mark end of condition';
+COMMENT ON COLUMN training.med_history.VISIT  IS 'Visit Name "SCREENING" for all, indicating all records are baseline';
+COMMENT ON COLUMN training.med_history.VISITnumeric  IS 'Visit Number';
+COMMENT ON COLUMN training.med_history.MHCAT  IS 'Category for Medical History';
+COMMENT ON COLUMN training.med_history.MHCONTR  IS 'Disease or Symptoms Controlled  Only populated for EFC6546, monitored conditions for the trial';
+COMMENT ON COLUMN training.med_history.MHPTCD  IS 'Prefered Term Code';
+COMMENT ON COLUMN training.med_history.MHSOC1FL  IS 'Primary System Organ Class (SOC) Flag';
+COMMENT ON COLUMN training.med_history.MHSOCCD  IS 'System Organ Class Code';
+COMMENT ON COLUMN training.med_history.MHHLGTCD  IS 'High Level Group Term Code';
+COMMENT ON COLUMN training.med_history.MHHLTCD  IS 'High Level Term Code';
+COMMENT ON COLUMN training.med_history.MHLLTCD  IS 'Lowest Level Term Code';

@@ -1,0 +1,85 @@
+CREATE TABLE training.prior_med
+(
+  domain text, -- Domain (table) Name Abbreviation
+  studyid text, -- Study Identifier (define which trial patient belongs to) Value: EFC6546, CELGENE, ASCENT2, AZ
+  rpt text CONSTRAINT firstkey PRIMARY KEY, -- Patient ID (or dummy id)
+  cmtrt text, -- Reported Name of Drug, Med, or Therapy   orginal verbatim entered into the clinical report form (CRF).
+  cmdecod text, -- Standardized Medication Name  standardized terms created from CMTRT by the data providers. (recommended term to use)
+  cmintent text, -- Intented Use of Medication
+  cmscat text, -- Subcategory for Medication
+  cmsscat text, -- Subsubcategory for Medication
+  cmpre text, -- Prior to 1st treatment Flag (derived) "YES" for all indicating all records are baseline
+  cmatc4 text, -- Chemical Class Medication classification (lowest level)
+  cmatc3 text, -- Pharmacological Class  Medication classification
+  cmatc2 text, -- Therapeutic Class Medication classification
+  cmatc1 text, -- Anatomic Class Medication classification (highest level)
+  cmdictv text, -- Version of Medical Dictionary reference (MedDRA) for standardized term and classification
+  cmdurn numeric, -- Duration of Medication
+  cmduru text, -- Duration Unit of Medication
+  visit text, -- Visit Name (Showing visit schedule)
+  cmdose numeric, -- Dose per Administration
+  cmdosfrq text, -- Dosing Frequency per Interval
+  cmdostot numeric, -- Total Daily Dose
+  cmdostxt text, -- Dose Description
+  cmdosu text, -- Dose Units
+  cmroute text, -- Route of Administration
+  cmprerep text, -- Previously Reported Flag Only available for StudyID=EFC6546, to flag pre-specificd med. per trial requirement
+  cmprn text, -- Medication PRN Flag  PRN means "use as needed"
+  cm_ae text, -- Treatment for Adverse Event
+  cmcat text, -- Category for Medication
+  cmatc1cd text, -- Anatomic Class Code  MedDRA code for CMATC1
+  cmatc2cd text, -- Therapeutic Class Code   MedDRA code for CMATC2
+  cmatc3cd text, -- Pharmacological Class Code MedDRA code for CMATC3
+  cmatc4cd text, -- Chemical Class Code  MedDRA code for CMATC4
+  cmatccd text, -- ATC Code complete MedDRA code for medication classification
+  cmrecno text, -- Medication Drug Record Number
+  cmseq1 text, -- Medication Drug Sequence Number 1
+  cmseq2 text, -- Medication Drug Sequence Number 2
+  cmmodify text, -- Modified Reported Name  modified version of CMTRT before standardization
+  cmstdt_pc numeric, -- Medication Start Date period value in days relative days from reference day (1st treatment date for most patients)
+  cmendt_pc numeric -- Medication End Date period value in days relative days from reference day, censored at 0 to avoid confounding
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE training.prior_med
+  OWNER TO dasanchez;
+COMMENT ON COLUMN training.prior_med.domain IS 'Domain (table) Name Abbreviation';
+COMMENT ON COLUMN training.prior_med.studyid IS 'Study Identifier (define which trial patient belongs to) Value: EFC6546, CELGENE, ASCENT2, AZ';
+COMMENT ON COLUMN training.prior_med.rpt IS 'Patient ID (or dummy id)';
+COMMENT ON COLUMN training.prior_med.cmtrt IS 'Reported Name of Drug, Med, or Therapy   orginal verbatim entered into the clinical report form (CRF).';
+COMMENT ON COLUMN training.prior_med.cmdecod IS 'Standardized Medication Name  standardized terms created from CMTRT by the data providers. (recommended term to use)';
+COMMENT ON COLUMN training.prior_med.cmintent IS 'Intented Use of Medication';
+COMMENT ON COLUMN training.prior_med.cmscat IS 'Subcategory for Medication';
+COMMENT ON COLUMN training.prior_med.cmsscat IS 'Subsubcategory for Medication';
+COMMENT ON COLUMN training.prior_med.cmpre IS 'Prior to 1st treatment Flag (derived) "YES" for all indicating all records are baseline';
+COMMENT ON COLUMN training.prior_med.cmatc4 IS 'Chemical Class Medication classification (lowest level)';
+COMMENT ON COLUMN training.prior_med.cmatc3 IS 'Pharmacological Class  Medication classification';
+COMMENT ON COLUMN training.prior_med.cmatc2 IS 'Therapeutic Class Medication classification';
+COMMENT ON COLUMN training.prior_med.cmatc1 IS 'Anatomic Class Medication classification (highest level)';
+COMMENT ON COLUMN training.prior_med.cmdictv IS 'Version of Medical Dictionary reference (MedDRA) for standardized term and classification';
+COMMENT ON COLUMN training.prior_med.cmdurn IS 'Duration of Medication';
+COMMENT ON COLUMN training.prior_med.cmduru IS 'Duration Unit of Medication';
+COMMENT ON COLUMN training.prior_med.visit IS 'Visit Name (Showing visit schedule)';
+COMMENT ON COLUMN training.prior_med.cmdose IS 'Dose per Administration';
+COMMENT ON COLUMN training.prior_med.cmdosfrq IS 'Dosing Frequency per Interval';
+COMMENT ON COLUMN training.prior_med.cmdostot IS 'Total Daily Dose';
+COMMENT ON COLUMN training.prior_med.cmdostxt IS 'Dose Description';
+COMMENT ON COLUMN training.prior_med.cmdosu IS 'Dose Units';
+COMMENT ON COLUMN training.prior_med.cmroute IS 'Route of Administration';
+COMMENT ON COLUMN training.prior_med.cmprerep IS 'Previously Reported Flag Only available for StudyID=EFC6546, to flag pre-specificd med. per trial requirement';
+COMMENT ON COLUMN training.prior_med.cmprn IS 'Medication PRN Flag  PRN means "use as needed"';
+COMMENT ON COLUMN training.prior_med.cm_ae IS 'Treatment for Adverse Event';
+COMMENT ON COLUMN training.prior_med.cmcat IS 'Category for Medication';
+COMMENT ON COLUMN training.prior_med.cmatc1cd IS 'Anatomic Class Code  MedDRA code for CMATC1';
+COMMENT ON COLUMN training.prior_med.cmatc2cd IS 'Therapeutic Class Code   MedDRA code for CMATC2';
+COMMENT ON COLUMN training.prior_med.cmatc3cd IS 'Pharmacological Class Code MedDRA code for CMATC3';
+COMMENT ON COLUMN training.prior_med.cmatc4cd IS 'Chemical Class Code  MedDRA code for CMATC4';
+COMMENT ON COLUMN training.prior_med.cmatccd IS 'ATC Code complete MedDRA code for medication classification';
+COMMENT ON COLUMN training.prior_med.cmrecno IS 'Medication Drug Record Number';
+COMMENT ON COLUMN training.prior_med.cmseq1 IS 'Medication Drug Sequence Number 1';
+COMMENT ON COLUMN training.prior_med.cmseq2 IS 'Medication Drug Sequence Number 2';
+COMMENT ON COLUMN training.prior_med.cmmodify IS 'Modified Reported Name  modified version of CMTRT before standardization';
+COMMENT ON COLUMN training.prior_med.cmstdt_pc IS 'Medication Start Date period value in days relative days from reference day (1st treatment date for most patients)';
+COMMENT ON COLUMN training.prior_med.cmendt_pc IS 'Medication End Date period value in days relative days from reference day, censored at 0 to avoid confounding';
+

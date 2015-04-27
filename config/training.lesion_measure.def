@@ -1,0 +1,59 @@
+CREATE TABLE training.lesion_measure
+(
+	PER_REF_C	text,
+	DOMAIN	text,
+	STUDYID	text,
+	RPT	text,
+	VISIT	text,
+	LSCAT	text,
+	LSTEST	text,
+	LSLOC	text,
+	LSLOC2	text,
+	LSORRES	text,
+	LSORRESU	text,
+	LSMETHOD	text,
+	LSSDT_P	numeric,
+	LSEDT_P	numeric,
+	VISITnumeric	numeric,
+	LSNO	numeric,
+	LSSTAT	text,
+	LSREASND	text,
+	LSSLOC	text,
+	LSSTRESC	text,
+	LSSTRESN	numeric,
+	LSSTRESU	text,
+	LSTESTCD	text,
+	LSCOM	text,
+	LSDT_PC	numeric
+)
+WITH (
+  OIDS = FALSE
+)
+;
+ALTER TABLE training.lesion_measure
+  OWNER TO dasanchez;
+COMMENT ON COLUMN training.lesion_measure.PER_REF_C	IS 'Reference day for lesion assessment day (LSDT_PC)	First treatment date for CELGENE & AZ, randomization date for EFC6546';
+COMMENT ON COLUMN training.lesion_measure.DOMAIN	IS 'Domain (table) Name Abbreviation	ASCENT2 study did not provide event level Lesion data.';
+COMMENT ON COLUMN training.lesion_measure.STUDYID	IS 'Study Identifier	Value: EFC6546, CELGENE, ASCENT2, AZ';
+COMMENT ON COLUMN training.lesion_measure.RPT	 	IS 'Patient ID (or dummy id)';
+COMMENT ON COLUMN training.lesion_measure.VISIT		IS 'Visit Name (Showing visit schedule)	Baseline lesion is defined as VISIT="SCREENING" or "1"';
+COMMENT ON COLUMN training.lesion_measure.LSCAT		IS 'Category for Lesions	Target vs. non-target lesion';
+COMMENT ON COLUMN training.lesion_measure.LSTEST	IS 'Lesion Test Name';
+COMMENT ON COLUMN training.lesion_measure.LSLOC		IS 'Location of Tumor';
+COMMENT ON COLUMN training.lesion_measure.LSLOC2	IS 'Location of Tumor Grouping	group location at time, not as populated as LSLOC';
+COMMENT ON COLUMN training.lesion_measure.LSORRES	IS 'Result or Finding in Original Units	Original result of the test, used for reference';
+COMMENT ON COLUMN training.lesion_measure.LSORRESU	IS 'Original Units';
+COMMENT ON COLUMN training.lesion_measure.LSMETHOD	IS 'Method of Measurement';
+COMMENT ON COLUMN training.lesion_measure.LSSDT_P	IS 'Earliest Assess Date period value	Only Available for AZ post baseline (blank for the released data)';
+COMMENT ON COLUMN training.lesion_measure.LSEDT_P	IS 'Latest Assess Date period value, 2nd ref	Only Available for AZ post baseline (blank for the released data)';
+COMMENT ON COLUMN training.lesion_measure.VISITnumeric	 IS 'Visit Number';
+COMMENT ON COLUMN training.lesion_measure.LSNO		IS 'Lesion Number';
+COMMENT ON COLUMN training.lesion_measure.LSSTAT	IS 'Completion Status';
+COMMENT ON COLUMN training.lesion_measure.LSREASND	IS 'Reason Not Performed';
+COMMENT ON COLUMN training.lesion_measure.LSSLOC	IS 'Location of Tumor (subcategory)	more detailed location of the lesion';
+COMMENT ON COLUMN training.lesion_measure.LSSTRESC	IS 'textacter Result/Finding in Std Format	Standardized format of the test result, recommended field to use (textacter)';
+COMMENT ON COLUMN training.lesion_measure.LSSTRESN	IS 'Numeric Result/Finding in Standard Units	Standardized format of the test result, recommended field to use (textacter)';
+COMMENT ON COLUMN training.lesion_measure.LSSTRESU	IS 'Standard Units	Unit for standardized format of the test result, recommended field to use';
+COMMENT ON COLUMN training.lesion_measure.LSTESTCD	IS 'Short Name of LSTEST';
+COMMENT ON COLUMN training.lesion_measure.LSCOM		IS 'Lesion Comment';
+COMMENT ON COLUMN training.lesion_measure.LSDT_PC	IS 'Assessment Date period value in days	relative days from reference day (first treatment date for CELGENE & AZ, randomization date for EFC6546)';

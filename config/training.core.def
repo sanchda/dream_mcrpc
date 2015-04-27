@@ -1,0 +1,271 @@
+CREATE TABLE training.core
+(
+   "DOMAIN" text,
+   STUDYID text,
+   RPT text CONSTRAINT firstkey PRIMARY KEY,
+   LKADT_P numeric,
+   DEATH text,
+   DISCONT text,
+   ENDTRS_C text,
+   ENTRT_PC numeric,
+   PER_REF text,
+   LKADT_REF text,
+   LKADT_PER text,
+   GLEAS_DX numeric,
+   TSTAG_DX text,
+   AGEGRP text,
+   AGEGRP2 text,
+   RACE_C text,
+   BMI numeric,
+   HEIGHTBL numeric,
+   HGTBLCAT text,
+   WEIGHTBL numeric,
+   WGTBLCAT text,
+   REGION_C text,
+   SMOKE text,
+   SMOKFREQ text,
+   SMOKSTAT text,
+   ECOG_C text,
+   TRT1_ID text,
+   TRT2_ID text,
+   TRT3_ID text,
+   ALP numeric,
+   ALT numeric,
+   AST numeric,
+   CA numeric,
+   CREAT numeric,
+   HB numeric,
+   LDH numeric,
+   NEU numeric,
+   PLT numeric,
+   PSA numeric,
+   TBILI numeric,
+   TESTO numeric,
+   WBC numeric,
+   CREACL numeric,
+   NA numeric,
+   MG numeric,
+   PHOS numeric,
+   ALB numeric,
+   TPRO numeric,
+   RBC numeric,
+   LYM numeric,
+   BUN numeric,
+   CCRC numeric,
+   GLU numeric,
+   CREACLCA numeric,
+   NON_TARGET text,
+   TARGET text,
+   BONE text,
+   RECTAL text,
+   LYMPH_NODES text,
+   KIDNEYS text,
+   LUNGS text,
+   LIVER text,
+   PLEURA text,
+   OTHER text,
+   PROSTATE text,
+   ADRENAL text,
+   BLADDER text,
+   PERITONEUM text,
+   COLON text,
+   HEAD_AND_NECK text,
+   SOFT_TISSUE text,
+   STOMACH text,
+   PANCREAS text,
+   THYROID text,
+   ABDOMINAL text,
+   ORCHIDECTOMY text,
+   PROSTATECTOMY text,
+   TURP text,
+   LYMPHADENECTOMY text,
+   SPINAL_CORD_SURGERY text,
+   BILATERAL_ORCHIDECTOMY text,
+   PRIOR_RADIOTHERAPY text,
+   ANALGESICS text,
+   ANTI_ANDROGENS text,
+   GLUCOCORTICOID text,
+   GONADOTROPIN text,
+   BISPHOSPHONATE text,
+   CORTICOSTEROID text,
+   IMIDAZOLE text,
+   ACE_INHIBITORS text,
+   BETA_BLOCKING text,
+   HMG_COA_REDUCT text,
+   ESTROGENS text,
+   ANTI_ESTROGENS text,
+   ARTTHROM text,
+   CEREBACC text,
+   CHF text,
+   DVT text,
+   DIAB text,
+   GASTREFL text,
+   GIBLEED text,
+   MI text,
+   PUD text,
+   PULMEMB text,
+   PATHFRAC text,
+   SPINCOMP text,
+   COPD text,
+   MHBLOOD text,
+   MHCARD text,
+   MHCONGEN text,
+   MHEAR text,
+   MHENDO text,
+   MHEYE text,
+   MHGASTRO text,
+   MHGEN text,
+   MHHEPATO text,
+   MHIMMUNE text,
+   MHINFECT text,
+   MHINJURY text,
+   MHINVEST text,
+   MHMETAB text,
+   MHMUSCLE text,
+   MHNEOPLA text,
+   MHNERV text,
+   MHPSYCH text,
+   MHRENAL text,
+   MHRESP text,
+   MHSKIN text,
+   MHSOCIAL text,
+   MHSURG text,
+   MHVASC text
+)
+WITH (
+  OIDS = FALSE
+)
+;
+ALTER TABLE training.core
+  OWNER TO dasanchez;
+COMMENT ON COLUMN training.core."DOMAIN" IS 'Domain (table) Name Abbreviation';
+COMMENT ON COLUMN training.core.STUDYID IS 'Study Identifier';
+COMMENT ON COLUMN training.core.RPT IS 'Patient ID (or dummy id)';
+COMMENT ON COLUMN training.core.LKADT_P IS 'Last Known Alive Dt Period in days';
+COMMENT ON COLUMN training.core.DEATH IS 'Patient Died Flag';
+COMMENT ON COLUMN training.core.DISCONT IS 'Discontinue Flag';
+COMMENT ON COLUMN training.core.ENDTRS_C IS 'Discontinue Trt Reason (category)';
+COMMENT ON COLUMN training.core.ENTRT_PC IS 'Discontinue Trt Date Period in days';
+COMMENT ON COLUMN training.core.PER_REF IS 'Reference Day used for ENTRT_PC';
+COMMENT ON COLUMN training.core.LKADT_REF IS 'Reference Day used for LKADT_P';
+COMMENT ON COLUMN training.core.LKADT_PER IS 'Period unit for period values, LKADT_P';
+COMMENT ON COLUMN training.core.GLEAS_DX IS 'Gleason Score at Initial diagnosis, see detail definition in wiki data description';
+COMMENT ON COLUMN training.core.TSTAG_DX IS 'Primary Tumor-stage Score at Initial diagnosis, see detail definition in wiki data description';
+COMMENT ON COLUMN training.core.AGEGRP IS 'Age Group';
+COMMENT ON COLUMN training.core.AGEGRP2 IS 'Age Group (3 category)';
+COMMENT ON COLUMN training.core.RACE_C IS 'Race';
+COMMENT ON COLUMN training.core.BMI IS 'Baseline Body Mass Index (kg/m2)';
+COMMENT ON COLUMN training.core.HEIGHTBL IS 'Baseline Height in cm';
+COMMENT ON COLUMN training.core.HGTBLCAT IS 'Baseline Height in cm category';
+COMMENT ON COLUMN training.core.WEIGHTBL IS 'Baseline Weight in kg';
+COMMENT ON COLUMN training.core.WGTBLCAT IS 'Baseline Weight in kg category';
+COMMENT ON COLUMN training.core.REGION_C IS 'Region of the World';
+COMMENT ON COLUMN training.core.SMOKE IS 'Ever Smoked';
+COMMENT ON COLUMN training.core.SMOKFREQ IS 'Smoking Frequency';
+COMMENT ON COLUMN training.core.SMOKSTAT IS 'Current Smoking Status';
+COMMENT ON COLUMN training.core.ECOG_C IS 'Baseline Patient Performance Status';
+COMMENT ON COLUMN training.core.TRT1_ID IS 'Treatment 1 product ';
+COMMENT ON COLUMN training.core.TRT2_ID IS 'Treatment 2 product (docetaxel)';
+COMMENT ON COLUMN training.core.TRT3_ID IS 'Treatment 3 product (prednisone except AZ)';
+COMMENT ON COLUMN training.core.ALP IS 'BASELINE LAB VALUE: ALKALINE PHOSPHATASE U/L';
+COMMENT ON COLUMN training.core.ALT IS 'BASELINE LAB VALUE: ALANINE TRANSAMINASE  U/L';
+COMMENT ON COLUMN training.core.AST IS 'BASELINE LAB VALUE: ASPARTATE AMINOTRANSFERASE U/L';
+COMMENT ON COLUMN training.core.CA IS 'BASELINE LAB VALUE: CALCIUM MMOL/L';
+COMMENT ON COLUMN training.core.CREAT IS 'BASELINE LAB VALUE: CREATININE UMOL/L';
+COMMENT ON COLUMN training.core.HB IS 'BASELINE LAB VALUE: HEMOGLOBIN G/DL';
+COMMENT ON COLUMN training.core.LDH IS 'BASELINE LAB VALUE: LACTATE DEHYDROGENASE U/L';
+COMMENT ON COLUMN training.core.NEU IS 'BASELINE LAB VALUE: NEUTROPHILS 10^9/L';
+COMMENT ON COLUMN training.core.PLT IS 'BASELINE LAB VALUE: PLATELET COUNT 10^9/L';
+COMMENT ON COLUMN training.core.PSA IS 'BASELINE LAB VALUE: PROSTATE SPECIFIC ANTIGEN NG/ML';
+COMMENT ON COLUMN training.core.TBILI IS 'BASELINE LAB VALUE: TOTAL BILIRUBIN UMOL/L';
+COMMENT ON COLUMN training.core.TESTO IS 'BASELINE LAB VALUE: TESTOSTERONE NMOL/L';
+COMMENT ON COLUMN training.core.WBC IS 'BASELINE LAB VALUE: WHITE BLOOD CELLS 10^9/L';
+COMMENT ON COLUMN training.core.CREACL IS 'BASELINE LAB VALUE: CREATININE CLEARANCE ML/MIN';
+COMMENT ON COLUMN training.core.NA IS 'BASELINE LAB VALUE: SODIUM MMOL/L';
+COMMENT ON COLUMN training.core.MG IS 'BASELINE LAB VALUE: MAGNESIUM MMOL/L';
+COMMENT ON COLUMN training.core.PHOS IS 'BASELINE LAB VALUE: PHOSPHORUS MMOL/L';
+COMMENT ON COLUMN training.core.ALB IS 'BASELINE LAB VALUE: ALBUMIN G/L';
+COMMENT ON COLUMN training.core.TPRO IS 'BASELINE LAB VALUE: TOTAL PROTEIN G/L';
+COMMENT ON COLUMN training.core.RBC IS 'BASELINE LAB VALUE: RED BLOOD CELLS 10^12/L';
+COMMENT ON COLUMN training.core.LYM IS 'BASELINE LAB VALUE: LYMPHOCYTES 10^9/L';
+COMMENT ON COLUMN training.core.BUN IS 'BASELINE LAB VALUE: BLOOD UREA NITROGEN MMOL/L';
+COMMENT ON COLUMN training.core.CCRC IS 'BASELINE LAB VALUE: CALCULATED CREATININE CLEARANCE ML/MIN';
+COMMENT ON COLUMN training.core.GLU IS 'BASELINE LAB VALUE: GLUCOSE MMOL/L';
+COMMENT ON COLUMN training.core.CREACLCA IS 'BASELINE LAB VALUE: CREATININE CLEARANCE CALCUL. (COCKCROFT AND GAULT) ML/MIN';
+COMMENT ON COLUMN training.core.NON_TARGET IS 'Baseline Non-Target Lesion(s), target vs. non-target lesion definition see wiki data description';
+COMMENT ON COLUMN training.core.TARGET IS 'Baseline Target Lesion(s), target vs. non-target lesion definition see wiki data description';
+COMMENT ON COLUMN training.core.BONE IS 'Baseline Bone Lesion(s)';
+COMMENT ON COLUMN training.core.RECTAL IS 'Baseline Rectal Lesion(s)';
+COMMENT ON COLUMN training.core.LYMPH_NODES IS 'Baseline Lymph Node Lesion(s)';
+COMMENT ON COLUMN training.core.KIDNEYS IS 'Baseline Kidney Lesion(s)';
+COMMENT ON COLUMN training.core.LUNGS IS 'Baseline Lung Lesion(s)';
+COMMENT ON COLUMN training.core.LIVER IS 'Baseline Liver Lesion(s)';
+COMMENT ON COLUMN training.core.PLEURA IS 'Baseline Pleura Lesion(s)';
+COMMENT ON COLUMN training.core.OTHER IS 'Baseline Other Lesion(s)';
+COMMENT ON COLUMN training.core.PROSTATE IS 'Baseline Prostate Lesion(s)';
+COMMENT ON COLUMN training.core.ADRENAL IS 'Baseline Adrenal Lesion(s)';
+COMMENT ON COLUMN training.core.BLADDER IS 'Baseline Bladder Lesion(s)';
+COMMENT ON COLUMN training.core.PERITONEUM IS 'Baseline Peritoneum Lesion(s)';
+COMMENT ON COLUMN training.core.COLON IS 'Baseline Colon Lesion(s)';
+COMMENT ON COLUMN training.core.HEAD_AND_NECK IS 'Baseline Head and Neck Lesion(s)';
+COMMENT ON COLUMN training.core.SOFT_TISSUE IS 'Baseline Soft Tissue Lesion(s)';
+COMMENT ON COLUMN training.core.STOMACH IS 'Baseline Stomach Lesion(s)';
+COMMENT ON COLUMN training.core.PANCREAS IS 'Baseline Pancreas Lesion(s)';
+COMMENT ON COLUMN training.core.THYROID IS 'Baseline Thyroid Lesion(s)';
+COMMENT ON COLUMN training.core.ABDOMINAL IS 'Baseline Abdominal Lesion(s)';
+COMMENT ON COLUMN training.core.ORCHIDECTOMY IS 'Prior Orchidectomy(includes bilateral)';
+COMMENT ON COLUMN training.core.PROSTATECTOMY IS 'Prior Prostatectomy';
+COMMENT ON COLUMN training.core.TURP IS 'Prior Turp';
+COMMENT ON COLUMN training.core.LYMPHADENECTOMY IS 'Prior Bilateral Lymphadenectomy';
+COMMENT ON COLUMN training.core.SPINAL_CORD_SURGERY IS 'Prior Spinal Cord Surgery';
+COMMENT ON COLUMN training.core.BILATERAL_ORCHIDECTOMY IS 'Prior Bilateral Orchidectomy';
+COMMENT ON COLUMN training.core.PRIOR_RADIOTHERAPY IS 'Prior Radiotherapy';
+COMMENT ON COLUMN training.core.ANALGESICS IS 'Prior analgesics';
+COMMENT ON COLUMN training.core.ANTI_ANDROGENS IS 'Prior Anti-Androgens';
+COMMENT ON COLUMN training.core.GLUCOCORTICOID IS 'Prior Glucocorticoids';
+COMMENT ON COLUMN training.core.GONADOTROPIN IS 'Prior Gomadotropin';
+COMMENT ON COLUMN training.core.BISPHOSPHONATE IS 'Prior Bisphosponate';
+COMMENT ON COLUMN training.core.CORTICOSTEROID IS 'Prior Corticosteroid';
+COMMENT ON COLUMN training.core.IMIDAZOLE IS 'Prior Imidazole';
+COMMENT ON COLUMN training.core.ACE_INHIBITORS IS 'Prior ACE Inhibitors';
+COMMENT ON COLUMN training.core.BETA_BLOCKING IS 'Prior Beta Blocking Agents';
+COMMENT ON COLUMN training.core.HMG_COA_REDUCT IS 'Prior HMG COA Reductase Inhibitors';
+COMMENT ON COLUMN training.core.ESTROGENS IS 'Prior Estrogens';
+COMMENT ON COLUMN training.core.ANTI_ESTROGENS IS 'Prior Anti-Estrogens';
+COMMENT ON COLUMN training.core.ARTTHROM IS 'MEDICAL HISTORY: ARTERIAL THROMBOSIS';
+COMMENT ON COLUMN training.core.CEREBACC IS 'MEDICAL HISTORY: CEREBROVASCULAR ACCIDENT (HEMORRHAGIC AND/OR ISCHEMIC)';
+COMMENT ON COLUMN training.core.CHF IS 'MEDICAL HISTORY: CONGESTIVE HEART FAILURE';
+COMMENT ON COLUMN training.core.DVT IS 'MEDICAL HISTORY: DEEP VENOUS THROMBOSIS (DVT)';
+COMMENT ON COLUMN training.core.DIAB IS 'MEDICAL HISTORY: DIABETES';
+COMMENT ON COLUMN training.core.GASTREFL IS 'MEDICAL HISTORY: GASTROESOPHAGEAL REFLUX DISEASE (GERD)';
+COMMENT ON COLUMN training.core.GIBLEED IS 'MEDICAL HISTORY: GASTROINTESTINAL (GI) BLEED';
+COMMENT ON COLUMN training.core.MI IS 'MEDICAL HISTORY: MYOCARDIAL INFARCTION (MI)';
+COMMENT ON COLUMN training.core.PUD IS 'MEDICAL HISTORY: PEPTIC ULCER DISEASE (PUD)';
+COMMENT ON COLUMN training.core.PULMEMB IS 'MEDICAL HISTORY: PULMONARY EMBOLISM (PE)';
+COMMENT ON COLUMN training.core.PATHFRAC IS 'MEDICAL HISTORY: PATHOLOGICAL BONE FRACTURES';
+COMMENT ON COLUMN training.core.SPINCOMP IS 'MEDICAL HISTORY: SPINAL CORD COMPRESSION';
+COMMENT ON COLUMN training.core.COPD IS 'MEDICAL HISTORY: CHRONIC OBSTRUCTIVE PULMONARY DISEASE';
+COMMENT ON COLUMN training.core.MHBLOOD IS 'MEDICAL HISTORY (Body system): BLOOD & LYMPHATIC SYSTEM';
+COMMENT ON COLUMN training.core.MHCARD IS 'MEDICAL HISTORY (Body system): CARDIAC DISORDERS';
+COMMENT ON COLUMN training.core.MHCONGEN IS 'MEDICAL HISTORY (Body system): CONGENITAL, FAMILIAL & GENETIC';
+COMMENT ON COLUMN training.core.MHEAR IS 'MEDICAL HISTORY (Body system): EAR & LABYRINTH';
+COMMENT ON COLUMN training.core.MHENDO IS 'MEDICAL HISTORY (Body system): ENDOCRINE DISORDERS';
+COMMENT ON COLUMN training.core.MHEYE IS 'MEDICAL HISTORY (Body system): EYE DISORDERS';
+COMMENT ON COLUMN training.core.MHGASTRO IS 'MEDICAL HISTORY (Body system): GASTROINTESTINAL DISORDERS';
+COMMENT ON COLUMN training.core.MHGEN IS 'MEDICAL HISTORY (Body system): GEN DISORD & ADMIN SITE';
+COMMENT ON COLUMN training.core.MHHEPATO IS 'MEDICAL HISTORY (Body system): HEPATOBILIARY DISORDERS';
+COMMENT ON COLUMN training.core.MHIMMUNE IS 'MEDICAL HISTORY (Body system): IMMUNE SYSTEM DISORDERS';
+COMMENT ON COLUMN training.core.MHINFECT IS 'MEDICAL HISTORY (Body system): INFECTIONS & INFESTATIONS';
+COMMENT ON COLUMN training.core.MHINJURY IS 'MEDICAL HISTORY (Body system): INJURY, POISON & PROCEDURAL';
+COMMENT ON COLUMN training.core.MHINVEST IS 'MEDICAL HISTORY (Body system): INVESTIGATIONS';
+COMMENT ON COLUMN training.core.MHMETAB IS 'MEDICAL HISTORY (Body system): METABOLISM & NUTRITION';
+COMMENT ON COLUMN training.core.MHMUSCLE IS 'MEDICAL HISTORY (Body system): MUSC/SKELETAL & CONNECT TISSUE';
+COMMENT ON COLUMN training.core.MHNEOPLA IS 'MEDICAL HISTORY (Body system): NEOPLASMS BENIGN, MALIG & UNSPEC';
+COMMENT ON COLUMN training.core.MHNERV IS 'MEDICAL HISTORY (Body system): NERVOUS SYSTEM DISORDERS';
+COMMENT ON COLUMN training.core.MHPSYCH IS 'MEDICAL HISTORY (Body system): PSYCHIATRIC DISORDERS';
+COMMENT ON COLUMN training.core.MHRENAL IS 'MEDICAL HISTORY (Body system): RENAL & URINARY DISORDERS';
+COMMENT ON COLUMN training.core.MHRESP IS 'MEDICAL HISTORY (Body system): RESP, THORACIC & MEDIASTINAL';
+COMMENT ON COLUMN training.core.MHSKIN IS 'MEDICAL HISTORY (Body system): SKIN & SUBCUTANEOUS TISSUE';
+COMMENT ON COLUMN training.core.MHSOCIAL IS 'MEDICAL HISTORY (Body system): SOCIAL CIRCUMSTANCES';
+COMMENT ON COLUMN training.core.MHSURG IS 'MEDICAL HISTORY (Body system): SURGICAL & MEDICAL PROCEDURES';
+COMMENT ON COLUMN training.core.MHVASC IS 'MEDICAL HISTORY (Body system): VASCULAR DISORDERS';
