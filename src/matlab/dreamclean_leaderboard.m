@@ -1,10 +1,9 @@
-function [] = dreamclean()
+function [varIdx] = dreamclean_leaderboard()
 %This puts the data into a nice parallelized fashion: No 'Y' and "Yes", for
 %instance
 
 %% Load data, define output structures
-fname = '../../data/halabi_feats_table_4_9_15.csv';
-halabiTable = readtable(fname); 
+halabiTable = readtable('..\..\data\halabi_leader_rnd1_feats_table_5_14_15.csv'); 
 load('../../data/halabi_22_feat_names.mat'); % loads f22_feat_names
 
 varNames = halabiTable.Properties.VariableNames;
@@ -92,7 +91,7 @@ ind_var22 = table2array( B(:, indNames22 ) );
 censoring = table2array( B(:, censorName ) );
 surv_var  = table2array( B(:, survName)    );
 
-save('../../data/cleaned_ind.mat', 'ind_var');
-save('../../data/cleaned_censor.mat', 'censoring');
-save('../../data/cleaned_surv.mat', 'surv_var');
-save('../../data/cleaned_ind22.mat', 'ind_var22');
+save('../../data/cleaned_ind_leader_rnd1.mat', 'ind_var');
+save('../../data/cleaned_censor_leader_rnd1.mat', 'censoring');
+save('../../data/cleaned_surv_leader_rnd1.mat', 'surv_var');
+save('../../data/cleaned_ind22_leader_rnd1.mat', 'ind_var22');
