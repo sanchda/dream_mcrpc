@@ -40,12 +40,9 @@ cox_model = coxph(Surv(survival[,1], censor[,1])~ ., data = features[, abs(coeff
 # Now to obtain the 12 month estimate:
 # Show results
 source("metrics.R");
-results = showSurvMetrics(12, censor[,1], survival[,1], cox_model, features, coeffs)
-
+featFrame = as.data.frame(features);
+names(featFrame) = featNames22;
+results = showSurvMetrics(12, censor[,1], survival[,1], cox_model, featFrame, coeffs)
 
 thisEstimate = results$estimate;
 plot(thisEstimate)
-
-
-
-

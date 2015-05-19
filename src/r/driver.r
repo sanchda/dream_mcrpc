@@ -25,9 +25,6 @@ source("halabi_cox_alasso.r");
 result = alasso_cox(NN = 10, survival, censor, features, 1)
 
 
-# For testing purposes
-
-
 # Test model by injecting coeffs into other coxph
 cv.fit <- cv.glmnet(features, Surv(survival, censor), family = "cox", maxit = 1000)
 fit <- glmnet(features, Surv(survival, censor), family = "cox", maxit = 1000)
@@ -39,7 +36,7 @@ cox_model$coefficients = result[2, abs(result[2,]) > 0.001 ]
 # Now to obtain the 12 month estimate:
 # Show results
 source("metrics.R");
-results = showSurvMetrics(12, censor[,1], survival[,1], cox_model, features[,abs(result[2,]) > 0.001], coeffs[abs(result[2,]) > 0.001])
+results = showSurvMetrics(12, censor, survival, cox_model, features[,abs(result[2,]) > 0.001], coeffs[abs(result[2,]) > 0.001])
 
 
 thisEstimate = results$estimate;
