@@ -70,14 +70,14 @@ B(:, rawVars) = A(:, rawVars);
 
 
 %% Impute NaNs
-for i = 1:numel(B(1,:))
-    
-   if sum( isnan( B.(i) ) ) > 0
-      B.( i)( isnan( B.(i) ) ) = nanmean( B.( i ) );
-      disp(i);
-   end
-      
-end
+% for i = 1:numel(B(1,:))
+%     
+%    if sum( isnan( B.(i) ) ) > 0
+%       B.( i)( isnan( B.(i) ) ) = nanmean( B.( i ) );
+%       disp(i);
+%    end
+%       
+% end
 
 
 %% Write to file
@@ -91,7 +91,18 @@ ind_var22 = table2array( B(:, indNames22 ) );
 censoring = table2array( B(:, censorName ) );
 surv_var  = table2array( B(:, survName)    );
 
+ind_var_table = B(:,indNames);
+ind_var22_table = B(:, indNames22 );
+censoring_table = B(:, censorName ) ;
+surv_var_table = B(:, survName);
+
 save('../../data/cleaned_ind_leader_rnd1.mat', 'ind_var');
 save('../../data/cleaned_censor_leader_rnd1.mat', 'censoring');
 save('../../data/cleaned_surv_leader_rnd1.mat', 'surv_var');
 save('../../data/cleaned_ind22_leader_rnd1.mat', 'ind_var22');
+
+writetable(ind_var_table, '../../data/cleaned_ind_leader_rnd1.csv');
+writetable(censoring_table, '../../data/cleaned_censor_leader_rnd1.csv');
+writetable(surv_var_table, '../../data/cleaned_surv_leader_rnd1.csv');
+writetable(ind_var22_table, '../../data/cleaned_ind22_leader_rnd1.csv');
+
