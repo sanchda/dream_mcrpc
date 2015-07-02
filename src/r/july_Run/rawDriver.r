@@ -6,3 +6,4 @@ medTable  = read.csv("data\\raw_data\\MedHistory_training.csv", stringsAsFactors
 pmedTable = read.csv("data\\raw_data\\PriorMed_training.csv", stringsAsFactors=FALSE);
 vitTable  = read.csv("data\\raw_data\\VitalSign_training.csv", stringsAsFactors=FALSE);
 
+# 
